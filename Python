@@ -1,0 +1,76 @@
+print('Hello world')    #출력 내용은 같지만  ', " 2개가 가능한 이유는
+print("Hello world")    #원하는 출력 내용에 'or"가 포함되는 경우에 2개중 1개로 선택해 사용할 수 있다.
+                        #'와"가 둘다 출력 하고 싶다면 ' or "에 \를 붙여주면된다. \의 역할은 "의 기본적인 임무를 일시적으로 해제시켜준다.(escape)
+a = 'Hello Python'
+print(a * 2)      #Hello PythonHello Python  이렇게 2번 출력된다.
+print((a+'\n')*2)  #Hello Python 줄바꿈 Hello Python 이렇게 2번 출력된다.
+
+#positional formating        {}와 .format 형식을 통해 formating을 할 수 있다. -> 위치 기반으로 하는 방법이다.
+
+print('Lorem {} is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum has been the industry's standard dummy text ever since the {},
+when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+It has survived not only five {}, but also the leap into electronic typesetting, remaining essentially unchanged.
+It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+and more recently with desktop publishing software like Aldus PageMaker including versions of
+Lorem {}.'.format('Ipsum', 1500, 'centuries', 'Ipsum'))
+
+#Named placeholder    중복성을 없애고 어떤 취지의 값이 해당 자리에 오는가를 알 수 있게끔 formating을 할 수 있다.  -> 이름 기반으로 formating하는 방법이다.
+print('Lorem {name} is simply dummy text of the printing and typesetting industry.
+Lorem Ipsum has been the industry's standard dummy text ever since the {since:d},      #d 옵션을 주었기에 숫자를 받아 올 수 있다..
+when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+It has survived not only five {centuries}, but also the leap into electronic typesetting, remaining essentially unchanged.
+It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+and more recently with desktop publishing software like Aldus PageMaker including versions of
+Lorem {name}.'.format(name='Ipsum', since=1500, centuries='centuries'))
+
+#html 코드를 작성한 이후 py파일에 #!python3 를 추가해 준뒤 print("Content-Type: text/html") print() 을 입력해준다.
+                                                        # -> Content-Type으로 이 웹페이지가 어떤 데이터 인지를 알려준다, 그리고 이 헤더가 끝나면 한줄을 띄워줘야해 print()를 입력해준 것이다.
+#그 후 print문으로 html코드를 출력해주면 py파일을 웹페이지에서 실행할 수 있다.
+
+#위처럼 py파일로 만들어 출력을 한다면 formating을 html코드 전체를 대상으로 사용할 수 있다.
+
+#boolean이라는 데이터 타입은 참과 거짓 이렇게 2가지로 나뉘는 데이터 타입이다.
+#어떤 문자가 어딘가에 포함되어 있는지 아닌지를 파악할 때, 현재 디렉토리에 어떠한 파일이 있는지 없는지를 파악하고 싶을 때 사용할 수 있다.
+#논리적인 순서에서 어떤 조건을 만났을 때 그 조건이 어떠한 상태인가를 확인할 수 있도록 도와줄수 있다.
+
+import os
+files = os.listdir('data')    #files에 data디렉토리에 있는 파일들을 가지고 온다
+listStr = ''                  #반복문을 통해 가지고 올 파일들의 목록을 저장할 변수
+
+for item in files:
+    listStr = listStr + '<li><a href="index.py?id={name}">{name}</a></li>'.format(name=item)    #이렇게 만든다면, 하이퍼링크가 되어 있는 글 목록을 출력할 수 있다.
+# 물론 여기서만이 아닌 나중에 print를 통해 출력할 html코드에도 fomat을 이용해 listStr을 활용할 수 있다.
+
+#하나의 py 파일에서 함수를 만들어 사용할 때 다른 py파일에서는 해당 함수를 사용할 수 없다. 이를 해결하기 위해 모듈을 사용한다.
+# 각 주제를 정해 해당 주제와 관련된 함수, 변수 등을 저장해 놓은 것을 모듈이라고 한다.
+# 그리고 이 모듈을 사용하기 위해서는 impot [모듈이름] 의 형태로 모듈에 있는 함수와 변수들을 가지고와 사용할 수 있다.
+# 또, form [모듈 이름] import [함수 or 변수 이름] [함수 or 변수 이름] 의 형태로 모듈에 있는 함수와 변수들 중 필요한 것들만 가지고와 사용할 수도 있다.
+#ex) from math import average, plus, pi
+#import numpy as np   -> numpy 모듈을 import하는데 np라는 별칭으로 사용할 수 있게 한다.
+
+#모듈 = 누군가 만들어놓은 파이썬 파일(.py)이고
+#모듈들을 모아둔 폴더를 패키지라고 한다.
+
+# 정리하자면
+# 데이터를 정리정돈 하는 것 = list, dict
+# 코드를 정리정돈 하는 것 = funtion(함수)
+# 데이터와 함수를 정리정돈 하는 것 = 객체
+# 객체를 파일로 정리정돈 한 것이 = 모듈
+# 모듈을 디렉토리로 정리정돈 한 것이 = 패키지 이다.
+
+#이름이 같지만 다른 결과를 반환하는 함수가 존재할때 이런 충돌을 피하기 위해 서로 다른 모듈에 저장을 하고 해당 함수의 상위주제를 이름으로 모듈을 만든다.
+
+#import로 모듈을 가지고 올 수 있다
+import arithmetic_module
+print(arithmetic_module.sum(1,2))    #import한 모듈이 가지고 있는 함수를 사용할 때 이러한 형태로 사용하면된다.
+
+from arithmetic_module import sum    
+print(sum(1,2))                      #이렇게 가지고 온다면 그냥 sum으로 사용을 해도 상관 없다.
+
+#만약 number_package패키지에 있는 arithmetic_module모듈을 import한다면
+import number_package.arithmetic_module    #이렇게 import할 수 있다.
+
+#from 을 사용한다면
+from number_package.arithmetic_module import sum    #이렇게도 사용할 수 있다.
+
